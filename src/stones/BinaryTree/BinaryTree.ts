@@ -40,7 +40,7 @@ import { ComplexityConfigType, DataStructureComplexityConfig } from "meta/comple
   space: 'O(n)',
 }
 
-class BinaryTreeNode {
+export class BinaryTreeNode {
   constructor(
     public value: number,
     public left: Nullable<BinaryTreeNode> = null,
