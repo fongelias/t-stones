@@ -12,3 +12,15 @@ export interface DataStructureComplexityConfig extends ComplexityConfig, Record<
   type: ComplexityConfigType.DATA_STRUCTURE;
   space: string;
 }
+
+export interface RuntimeCases {
+  best: string;
+  base: string;
+  worst: string;
+}
+
+export interface AlgorithmComplexityConfig extends ComplexityConfig {
+  type: ComplexityConfigType.ALGORITHM;
+  space: string;
+  runtime: RuntimeCases;
+}

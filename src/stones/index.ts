@@ -25,9 +25,8 @@ export { Stack } from './Stack/Stack';
 export { Queue } from './Queue/Queue';
 // [x] Binary Tree
 export { BinaryTree } from './BinaryTree/BinaryTree';
-// [ ] Heap
-// [ ] Binary Search Tree
-// [ ] Matrix
+// [x] Heap
+export { Heap } from './Heap/Heap';
 // [ ] Graph
 // [ ] Array
 // [ ] Trie
@@ -35,10 +34,27 @@ export { BinaryTree } from './BinaryTree/BinaryTree';
 // [ ] Set
 
 
-// algorithm roadmap:
-// [ ] bfs
-// [ ] dfs
+// algorithm roadmap (leetcode):
+// template for description:
+/**
+ * algorithm:
+ * what is it?
+ * 
+ * how does it work?
+ * 
+ * what are common applications?
+ * 
+ */
+// [x] binary search sorted array
+export { BinarySearch } from './BinarySearch/BinarySearch';
+
+
+// algorithms roadmap (placeholder):
+// [ ] tree bfs
+// [ ] tree dfs
 // [ ] cycle detection
+// [ ] graph bfs
+// [ ] graph dfs
 // [ ] dijkstra's
 // [ ] a*
 // [ ] nearest neighbor

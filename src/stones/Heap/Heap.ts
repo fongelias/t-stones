@@ -15,7 +15,7 @@ import { ComplexityConfigType, DataStructureComplexityConfig } from "meta/comple
  * 
  * 
  * what are common applications?
- * 
+ * priority queue
  */
 
  export const HEAP_COMPLEXITY_CONFIG: DataStructureComplexityConfig = {
@@ -40,9 +40,15 @@ import { ComplexityConfigType, DataStructureComplexityConfig } from "meta/comple
 }
 
 export class Heap {
+  private values: number[] = [];
+
   constructor(
-    private values: any[] = [],
+    values?: number[],
   ) {
+    if (values) {
+      this.values = values.slice();
+    }
+
     if (this.values.length) {
       this.heapify();
     }
@@ -80,22 +86,24 @@ export class Heap {
     const valueToReturn = this.values.shift();
 
     // single element case
+    // empty case already handled above
     if (this.values.length === 1) {
-      return valueToReturn;
+      return valueToReturn as number;
     }
 
     // replace element with highest value with last value, then bubble down
-    this.values.unshift(this.values.pop());
+    this.values.unshift(this.values.pop() as number);
 
     // bubble down new root value
     this.bubbleDown(0);
 
-    return valueToReturn;
+    return valueToReturn as number;
   }
 
   private bubbleDown(startIdx: number = 0): void {
+    const length = this.values.length;
     let currentIdx = startIdx;
-    while (currentIdx < this.values.length) {
+    while (currentIdx < length) {
       const leftChildIdx = (2 * currentIdx) + 1;
       const rightChildIdx = (2 * currentIdx) + 2;
       const leftChildValue = this.values[leftChildIdx];
@@ -103,19 +111,27 @@ export class Heap {
       const currentValue = this.values[currentIdx];
 
       // no children case
-      const noChildren = leftChildIdx > this.values.length && rightChildIdx > this.values.length;
+      const leftChildExists = leftChildValue !== undefined;
+      const rightChildExists = rightChildValue !== undefined;
+      const noChildren = !leftChildExists && !rightChildExists;
       if (noChildren) {
         break;
       }
       
-      // larger than both children case
-      const largerThanBothChildren = currentValue > leftChildValue && currentValue > rightChildValue;
+      // larger than both children case (undefined considered to be -Infinity)
+      const largerThanBothChildren = (
+        (currentValue > leftChildValue || !leftChildExists) && 
+        (currentValue > rightChildValue || !rightChildExists)
+      );
       if (largerThanBothChildren) {
         break;
       }
+
+      const onlyLeftChildExists = leftChildExists && !rightChildExists;
+      const leftChildGreaterThanRightChild = leftChildValue - rightChildValue > 0;
       
-      if (leftChildValue - rightChildValue > 0) {
-        // left child larger than right and current child case
+      if (onlyLeftChildExists || (leftChildExists && leftChildGreaterThanRightChild)) {
+        // left child larger than right and current child case, or its the only existing child
         // because we know current is smaller than either the right or the left,
         // if the left is bigger than the right, then it is the largest of the three
         // swap with left child
@@ -134,7 +150,7 @@ export class Heap {
     }
   }
 
-  public heapify(): void {
+  private heapify(): void {
     // Floyd's algorithm for heap construction
     // start at the last parent node and bubble down
     const lastParentIdx = Math.floor(this.values.length / 2 - 1);
@@ -152,6 +168,7 @@ export class Heap {
       const values = this.values.slice(idx, idx + valuesToPrint);
       console.log(values);
       idx += valuesToPrint;
+      row++;
     }
   }
 
