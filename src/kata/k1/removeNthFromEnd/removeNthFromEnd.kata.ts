@@ -1,5 +1,6 @@
 import { generateLinkedListFromArray } from "stones/utils/generateLinkedListFromArray";
 import { removeNthFromEnd } from "./removeNthFromEnd";
+import { generateArrayFromLinkedList } from "stones/utils/generateArrayFromLinkedList";
 
 describe('#removeNthFromEnd', () => {
   it('should remove the nth last node', () => {
@@ -19,13 +20,18 @@ describe('#removeNthFromEnd', () => {
         n: 1,
         output: [1],
       },
+      {
+        list: [1, 2],
+        n: 2,
+        output: [2],
+      },
     ];
 
     cases.forEach(({list, n, output}) => {
       const head = generateLinkedListFromArray(list);
-      removeNthFromEnd(head, n);
-
-      
+      const newHead = removeNthFromEnd(head, n);
+      const res = generateArrayFromLinkedList(newHead);
+      expect(res).toEqual(output);
     });
   });
 });
